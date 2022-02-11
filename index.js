@@ -3,11 +3,12 @@ canvas.width = 600;
 canvas.height = 300;
 ctx = canvas.getContext("2d");
 
-const dots = [4, 5, 4, 3, 4, 4.5, 3.2, 7, 5.3, 6.6];
+const dots = [4, 5, 4, 3, 4, 4.5, 3.2, 5, 5.3, 6.6];
 
 function buildCanvas(arr) {
+  const maxElem = Math.max(...arr);
+  const height = canvas.offsetHeight;
   const countOfDots = arr.length;
-  const delayY = canvas.offsetHeight;
   const stepX = canvas.offsetWidth / (countOfDots + 1);
   const diametr = 8;
   const radius = diametr / 2;
@@ -15,30 +16,28 @@ function buildCanvas(arr) {
   ctx.fillStyle = "white";
   ctx.lineWidth = 0.8;
   ctx.beginPath();
-  ctx.moveTo(stepX, delayY - arr[0] * 10);
-  ctx.strokeRect(
-    stepX - radius,
-    delayY - arr[0] * 10 - radius,
-    diametr,
-    diametr
-  );
-  ctx.fillRect(stepX - radius, delayY - arr[0] * 10 - radius, diametr, diametr);
 
-  for (let i = 1; i < arr.length; i++) {
-    ctx.lineTo(stepX + stepX * i, delayY - arr[i] * 10);
+  for (let i = 0; i < arr.length; i++) {
+    const procent = (arr[i] / maxElem) * 100;
+
+    if (i === 0) {
+      ctx.moveTo(stepX, height - (height / 100) * procent);
+    }
+
+    ctx.lineTo(stepX + stepX * i, height - (height / 100) * procent);
     ctx.strokeRect(
       stepX + stepX * i - radius,
-      delayY - arr[i] * 10 - radius,
+      height - ((height / 100) * procent + radius),
       diametr,
       diametr
     );
     ctx.fillRect(
       stepX + stepX * i - radius,
-      delayY - arr[i] * 10 - radius,
+      height - ((height / 100) * procent + radius),
       diametr,
       diametr
     );
-    ctx.moveTo(stepX + stepX * i, delayY - arr[i] * 10);
+    ctx.moveTo(stepX + stepX * i, height - (height / 100) * procent);
   }
 
   ctx.fill();
