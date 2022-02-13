@@ -1,5 +1,19 @@
+#wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+#bg {
+  position: absolute;
+  width: 650px;
+  height: 350px;
+  background-color: #c4c4c4;
+}
+
 #canv {
+  margin-top: 25px;
+  position: absolute;
   display: block;
-  margin: 0 auto;
   background-color: #c4c4c4;
 }
