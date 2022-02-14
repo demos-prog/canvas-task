@@ -48,19 +48,29 @@ function buildCanvas(arr) {
 
 buildCanvas(dots);
 
+function toMixArrs(arr1, arr2, k) {
+  let result = [];
+
+  for (let j = 0; j < arr1.length; j++) {
+    const maxValue = Math.max(arr1[j], arr2[j]);
+    const minValue = Math.min(arr1[j], arr2[j]);
+    const delta = (maxValue - minValue) / 10;
+
+    result.push(minValue + delta * k);
+  }
+
+  return result;
+}
+
 let isDefault = true;
-let previusArr = [...dots];
 
 canvas.addEventListener("click", () => {
-  buildCanvas(isDefault ? dots : [4, 5, 4, 3, 4, 4.5]);
+  const alterArr = [7, 5, 2, 3, 8, 3, 4.7, 9, 6.3, 8];
 
+  // for (let i = 0; i < 10; i++) {
+  buildCanvas(isDefault ? dots : toMixArrs(dots, alterArr, 10));
+  // buildCanvas(isDefault ? dots :alterArr);
+  // }
 
-  
   isDefault = !isDefault;
 });
-
-for (let i = 0; i < 5; i++) {
-  setTimeout(() => {
-    console.log(i);
-  }, 1000);
-}
